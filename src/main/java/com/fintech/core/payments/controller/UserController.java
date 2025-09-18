@@ -127,7 +127,7 @@ public class UserController {
         
         boolean success = userService.resetPassword(email, newPassword);
         if (success) {
-            return ResponseEntity.ok("Password reset successful for " + email);
+            return ResponseEntity.ok("Password reset successful for " + StringEscapeUtils.escapeHtml4(email));
         }
         return ResponseEntity.badRequest().body("Password reset failed");
     }
