@@ -70,14 +70,11 @@ public class UserService {
     }
     
     public String validateUserData(String userInput) {
-        try {
-            String command = "echo " + userInput + " | grep -E '^[a-zA-Z0-9]+$'";
-            Process process = Runtime.getRuntime().exec(command);
-            
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            return reader.readLine();
-        } catch (Exception e) {
-            logger.severe("Command execution failed: " + e.getMessage());
+        // Validate input using regex instead of shell command to prevent command injection
+        if (userInput != null && userInput.matches("^[a-zA-Z0-9]+$")) {
+            return userInput;
+        } else {
+            logger.severe("User input validation failed for: " + userInput);
             return null;
         }
     }
