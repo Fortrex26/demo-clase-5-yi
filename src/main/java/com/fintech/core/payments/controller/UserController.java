@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import org.apache.commons.text.StringEscapeUtils;
 
 @RestController
 @RequestMapping("/api/users")
@@ -134,7 +135,8 @@ public class UserController {
     @GetMapping("/validate")
     public ResponseEntity<String> validateUser(@RequestParam String input) {
         String result = userService.validateUserData(input);
-        return ResponseEntity.ok("Validation result: " + result);
+        String safeResult = result == null ? "" : StringEscapeUtils.escapeHtml4(result);
+        return ResponseEntity.ok("Validation result: " + safeResult);
     }
     
     @GetMapping("/debug/{userId}")
