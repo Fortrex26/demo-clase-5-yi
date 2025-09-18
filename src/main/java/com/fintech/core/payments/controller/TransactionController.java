@@ -118,7 +118,7 @@ public class TransactionController {
             return ResponseEntity.ok("Import completed successfully");
         } catch (Exception e) {
             logger.severe("XML import failed: " + e.getMessage());
-            return ResponseEntity.badRequest().body("Import failed: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Import failed");
         }
     }
     
